@@ -47,4 +47,12 @@ vaildResolvers_1.0.txt  国内家庭宽带验证后的可用dns列表
 
 resolvers_all.txt   收集的全世界dns列表，由于大家服务器可能在海外，因此可以通过本程序验证该列表找到适合所在地区的dns后使用
 
+数据来源：
+
+https://public-dns.info/nameserver/cn.txt
+
+https://public-dns.info/nameservers.txt
+
+https://github.com/neargle/public-dns-list
+
 
