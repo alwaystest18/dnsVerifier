@@ -40,3 +40,11 @@ $ ./dnsVerifier -r nameservers.txt
 ```
 
 实测10467个dns服务家庭宽带默认线程配置耗时7s
+
+## 附带文件说明
+
+vaildResolvers_1.0.txt  国内家庭宽带验证后的可用dns列表
+
+resolvers_all.txt   收集的全世界dns列表，由于大家服务器可能在海外，因此可以通过本程序验证该列表找到适合所在地区的dns后使用
+
+
