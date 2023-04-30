@@ -4,7 +4,6 @@ import (
 	"flag"
 	"io/ioutil"
 	"math/rand"
-	"net"
 	"os"
 	"regexp"
 	"sort"
@@ -89,9 +88,7 @@ func getDnsTypeA(resolver string, domain string, timeout int64) ([]string, error
 	}
 	c := new(dns.Client)
 	m := new(dns.Msg)
-	c.Dialer = &net.Dialer{
-		Timeout: time.Duration(timeout) * time.Millisecond,
-	}
+	c.Timeout = time.Duration(timeout) * time.Millisecond
 	m.SetQuestion(domain, dns.TypeA)
 	r, _, err := c.Exchange(m, resolver)
 	if err != nil {
@@ -100,7 +97,9 @@ func getDnsTypeA(resolver string, domain string, timeout int64) ([]string, error
 
 	for _, ans := range r.Answer {
 		record, _ := ans.(*dns.A)
-		resultTypeA = append(resultTypeA, record.A.String())
+		if record != nil && len(record.String()) < 100 { //避免record为nil导致的panic及忽略部分返回内容过大的dns（增加网络波动）
+			resultTypeA = append(resultTypeA, record.A.String())
+		}
 	}
 	return resultTypeA, err
 }
