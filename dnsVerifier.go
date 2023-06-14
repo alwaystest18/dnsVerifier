@@ -33,6 +33,12 @@ func FileContentToList(filePath string) []string {
 	return newList
 }
 
+// 去除换行
+func RemoveCRLF(resolver string) string {
+	r := strings.NewReplacer("\r", "", "\n", "")
+	return r.Replace(resolver)
+}
+
 // 检查是否为正确的ip格式
 func CheckIp(str string) bool {
 	regCheckIp := regexp.MustCompile(`\d+\.\d+\.\d+\.\d+(:\d+)?`)
@@ -143,6 +149,7 @@ func main() {
 
 	resolverList := FileContentToList(resolversFile)
 	for _, resolver := range resolverList {
+		resolver = RemoveCRLF(resolver)
 		if CheckIp(resolver) {
 			que.Put(resolver)
 		}
